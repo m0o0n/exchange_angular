@@ -1,10 +1,38 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { DataService } from './services/data.service';
+import { IData } from './reducers/data.model';
+import {
+  CalcExRate,
+  FillFromBase,
+  FromBaseSelector,
+  SetData,
+  ToFixed,
+} from './reducers/exchange.reducer';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'njrx2';
+export class AppComponent implements OnInit {
+  Usd: any;
+  Eur: any;
+  Btc: any;
+  FromBase: any;
+  FromBase$ = this.store.select(FromBaseSelector).subscribe((val) => {
+    this.FromBase = val;
+  });
+
+  ngOnInit(): void {
+    this.dataService.getAll().subscribe((data) => {
+      this.store.dispatch(SetData({ data }));
+      this.store.dispatch(CalcExRate());
+      this.store.dispatch(FillFromBase());
+      this.Usd = ToFixed(this.FromBase.USD, 2);
+      this.Eur = ToFixed(this.FromBase.EUR, 2);
+      this.Btc = ToFixed(this.FromBase.BTC, 0);
+      console.log(this.FromBase);
+    });
+  }
+  constructor(private dataService: DataService, private store: Store) {}
 }
