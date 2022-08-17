@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   BaseValueSelector,
   ToValueSelector,
-  FromInTogleSelector,
   ExRateSelector,
   AmountSelector,
   FromBaseSelector,
@@ -49,8 +48,8 @@ export class CurencyRowComponent implements OnInit {
     });
   });
 
-  baseInpVal: any = 0;
-  toInpVal: any = 0;
+  @Input() baseInpVal: any = 0;
+  @Input() toInpVal: any = 0;
 
   ChangeBaseValue(newValue: any) {
     this.store.dispatch(ChangeBaseValue({ value: newValue }));

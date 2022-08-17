@@ -57,6 +57,8 @@ export const SetData = createAction(
 
 export const FillFromBase = createAction('[Exchange] FillFromBase');
 
+export const InitValues = createAction('[Exchange] InitValues');
+
 export const ExchangeReducer = createReducer(
   initialState,
   on(ChangeBaseValue, (state, action) => ({
@@ -112,6 +114,11 @@ export const ExchangeReducer = createReducer(
         return [e.ccy, e.sale];
       })
     ),
+  })),
+  on(InitValues, (state) => ({
+    ...state,
+    BaseInputValue: state.Amount,
+    ToInputValue: state.Amount * state.ExRate,
   }))
 );
 
@@ -137,11 +144,6 @@ export const BaseInputValueSelector = createSelector(
 export const ToInputValueSelector = createSelector(
   featureSelector,
   (state) => state.ToInputValue
-);
-
-export const FromInTogleSelector = createSelector(
-  featureSelector,
-  (state) => state.FromInTogle
 );
 
 export const ExRateSelector = createSelector(
