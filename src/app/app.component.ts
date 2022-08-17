@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
       this.Usd = ToFixed(this.FromBase.USD, 2);
       this.Eur = ToFixed(this.FromBase.EUR, 2);
       this.Btc = ToFixed(this.FromBase.BTC, 0);
-      console.log(this.FromBase);
     });
   }
   constructor(private dataService: DataService, private store: Store) {}
