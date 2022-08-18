@@ -86,12 +86,33 @@
               </div>
             </div>
           </div>
+          <div class="row mb-1">
+            <app-curency-row
+              class="col"
+              [Cur]="BaseValue"
+              [FromBase]="FromBaseKeys"
+              [Change]="ChangeBaseValue"
+            ></app-curency-row>
+            <app-curency-row
+              class="col"
+              [Cur]="ToValue"
+              [FromBase]="FromBaseKeys"
+              [Change]="ChangeToValue"
+            ></app-curency-row>
+          </div>
 
-          <app-curency-row
-            [baseInpVal]="BaseInputValue"
-            [toInpVal]="ToInputValue"
-            [FromBase]="FromBaseKeys"
-          ></app-curency-row>
+          <div class="row">
+            <app-custom-input
+              class="col"
+              [InpVal]="BaseInputValue"
+              [changeInpVal]="ChangeBaseInputValue"
+            ></app-custom-input>
+            <app-custom-input
+              class="col"
+              [InpVal]="ToInputValue"
+              [changeInpVal]="ChangeToInputValue"
+            ></app-custom-input>
+          </div>
         </form>
       </div>
     </div>

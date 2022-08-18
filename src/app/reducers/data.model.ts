@@ -10,8 +10,8 @@ export interface ValuesState {
   FromBase: Object;
   BaseValue: string;
   ToValue: string;
-  BaseInputValue: number;
-  ToInputValue: number;
+  BaseInputValue: any;
+  ToInputValue: any;
   FromInTogle: boolean;
   ExRate: number;
   Amount: number;

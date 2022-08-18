@@ -21,7 +21,6 @@ export const initialState: ValuesState = {
   ExRate: 1,
   Amount: 1,
 };
-
 export const ExchangeReducer = createReducer(
   initialState,
   on(ChangeBaseValue, (state, action) => ({
@@ -113,14 +112,12 @@ export const ExchangeReducer = createReducer(
     Amount: 1,
     BaseInputValue: state.FromInTogle
       ? state.Amount
-      : state.Amount / state.ExRate,
+      : ToFixed(state.Amount / state.ExRate, 2),
     ToInputValue: state.FromInTogle
-      ? state.Amount * state.ExRate
+      ? ToFixed(state.Amount * state.ExRate, 2)
       : state.Amount,
   }))
 );
-
-// SELECTORS
 
 export const ToFixed = (num: any, afterDot: number) => {
   return Number(num).toFixed(afterDot);

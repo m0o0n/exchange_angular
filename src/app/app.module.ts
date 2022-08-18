@@ -13,9 +13,10 @@ import { CurencyRowComponent } from './curency-row/curency-row.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { metaReducers, reducers } from './reducers/index';
+import { CustomInputComponent } from './custom-input/custom-input.component';
 
 @NgModule({
-  declarations: [AppComponent, CurencyRowComponent],
+  declarations: [AppComponent, CurencyRowComponent, CustomInputComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
