@@ -1,29 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DataService } from './services/data.service';
-import { IData } from './reducers/data.model';
+import { CalcExRate, InitValues, SetData } from './reducers/exchange.actions';
 import {
   BaseInputValueSelector,
-  CalcExRate,
-  FillFromBase,
   FromBaseSelector,
-  InitValues,
-  SetData,
-  ToFixed,
   ToInputValueSelector,
-} from './reducers/exchange.reducer';
+} from './reducers/exchange.selectors';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  Usd: any;
-  Eur: any;
-  Btc: any;
   FromBase: any;
+  FromBaseKeys: any;
   FromBase$ = this.store.select(FromBaseSelector).subscribe((val) => {
     this.FromBase = val;
+    this.FromBaseKeys = Object.keys(val).filter((e: any) => {
+      if (e !== 'BTC') {
+        return e;
+      }
+    });
   });
 
   BaseInputValue: any;
@@ -42,11 +40,7 @@ export class AppComponent implements OnInit {
     this.dataService.getAll().subscribe((data) => {
       this.store.dispatch(SetData({ data }));
       this.store.dispatch(CalcExRate());
-      this.store.dispatch(FillFromBase());
       this.store.dispatch(InitValues());
-      this.Usd = ToFixed(this.FromBase.USD, 2);
-      this.Eur = ToFixed(this.FromBase.EUR, 2);
-      this.Btc = ToFixed(this.FromBase.BTC, 0);
     });
   }
   constructor(private dataService: DataService, private store: Store) {}

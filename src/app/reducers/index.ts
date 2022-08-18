@@ -1,7 +1,8 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import { environment } from '../../environments/environment';
-import { ExchangeReducer, ValuesState } from './exchange.reducer';
+import { ValuesState } from './data.model';
+import { ExchangeReducer } from './exchange.reducer';
 
 export interface State {
   values: ValuesState;

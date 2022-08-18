@@ -3,16 +3,15 @@ import { Store } from '@ngrx/store';
 import {
   BaseValueSelector,
   ToValueSelector,
-  ExRateSelector,
-  AmountSelector,
-  FromBaseSelector,
+} from '../reducers/exchange.selectors';
+
+import {
   ChangeBaseInputValue,
   ChangeBaseValue,
   ChangeToInputValue,
   ChangeToValue,
-  CalcExRate,
-  ToFixed,
-} from '../reducers/exchange.reducer';
+  InitValues,
+} from '../reducers/exchange.actions';
 @Component({
   selector: 'app-curency-row',
   templateUrl: './curency-row.component.html',
@@ -29,49 +28,26 @@ export class CurencyRowComponent implements OnInit {
     this.ToValue = val;
   });
 
-  ExRate: any;
-  ExRate$ = this.store.select(ExRateSelector).subscribe((val) => {
-    this.ExRate = val;
-  });
-
-  Amount: any;
-  Amount$ = this.store.select(AmountSelector).subscribe((val) => {
-    this.Amount = val;
-  });
-
-  FromBase: any;
-  FromBase$ = this.store.select(FromBaseSelector).subscribe((val) => {
-    this.FromBase = Object.keys(val).filter((e: any) => {
-      if (e !== 'BTC') {
-        return e;
-      }
-    });
-  });
+  @Input() FromBase: any;
 
   @Input() baseInpVal: any = 0;
   @Input() toInpVal: any = 0;
 
   ChangeBaseValue(newValue: any) {
     this.store.dispatch(ChangeBaseValue({ value: newValue }));
-    this.store.dispatch(CalcExRate());
-    this.toInpVal = ToFixed(this.Amount * this.ExRate, 2);
-    this.baseInpVal = this.Amount;
+    this.store.dispatch(InitValues());
   }
   ChangeToValue(newValue: any) {
     this.store.dispatch(ChangeToValue({ value: newValue }));
-    this.store.dispatch(CalcExRate());
-    this.toInpVal = this.Amount;
-    this.baseInpVal = ToFixed(this.Amount / this.ExRate, 2);
+    this.store.dispatch(InitValues());
   }
   ChangeBaseInputValue(newValue: any) {
     this.store.dispatch(ChangeBaseInputValue({ count: newValue.target.value }));
-    this.toInpVal = ToFixed(this.Amount * this.ExRate, 2);
-    this.baseInpVal = newValue.target.value;
+    this.store.dispatch(InitValues());
   }
   ChangeToInputValue(newValue: any) {
     this.store.dispatch(ChangeToInputValue({ count: newValue.target.value }));
-    this.toInpVal = newValue.target.value;
-    this.baseInpVal = ToFixed(this.Amount / this.ExRate, 2);
+    this.store.dispatch(InitValues());
   }
   constructor(private store: Store) {}
   ngOnInit(): void {}

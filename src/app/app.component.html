@@ -60,7 +60,7 @@
                 class="course-item-value row justify-content-center"
                 data-value="USD"
               >
-                {{ Usd }}
+                {{ FromBase.USD }}
               </div>
             </div>
             <div class="course-item card card-body">
@@ -71,7 +71,7 @@
                 class="course-item-value row justify-content-center"
                 data-value="EUR"
               >
-                {{ Eur }}
+                {{ FromBase.EUR }}
               </div>
             </div>
             <div class="course-item card card-body">
@@ -82,7 +82,7 @@
                 class="course-item-value row justify-content-center"
                 data-value="BTC"
               >
-                {{ Btc }}
+                {{ FromBase.BTC }}
               </div>
             </div>
           </div>
@@ -90,6 +90,7 @@
           <app-curency-row
             [baseInpVal]="BaseInputValue"
             [toInpVal]="ToInputValue"
+            [FromBase]="FromBaseKeys"
           ></app-curency-row>
         </form>
       </div>
